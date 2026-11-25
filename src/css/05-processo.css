@@ -1,0 +1,55 @@
+/* ---------------------------------------------------------------- como funciona
+   Mockup aprovado: a avenida vista do alto à noite, com os rastros dourados, ocupando o bloco
+   todo. Título no alto à esquerda e 5 cartões de vidro subindo em escada, cada um preso por
+   um fio a um ponto de luz na avenida. Quando a lista entra na tela, os pontos acendem em
+   sequência e o fio cresce do ponto até o cartão (05-processo.js põe .passos-vivos).        */
+.processo { padding-bottom: 0; }
+.processo__painel { min-height: 900px; display: flex; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .08); }
+.processo__foto img { object-position: 50% 70%; }
+.processo__painel::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(7 6 5 / .72) 0%, rgb(7 6 5 / .25) 34%, transparent 60%, rgb(7 6 5 / .35) 100%); }
+.processo__caixa { display: flex; flex-direction: column; padding: 72px 0 56px; }
+.processo__titulo { margin-top: 22px; max-width: 760px; }
+.processo__titulo .forte { display: block; }
+
+.processo__passos { flex: 1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 22px; align-items: end; margin-top: 40px; }
+.passo { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: calc(var(--n) * 62px); }
+.passo__cartao { width: 100%; display: flex; flex-direction: column; gap: 6px; padding: 22px 22px 24px; border-radius: 22px; background: linear-gradient(180deg, rgb(30 26 20 / .55), rgb(20 17 13 / .4)); }
+.passo__num { font-size: 40px; font-weight: 300; line-height: 1; letter-spacing: -.04em; color: var(--ouro-claro); }
+.passo__cartao strong { margin-top: 8px; font-size: 21px; font-weight: 600; line-height: 1.15; letter-spacing: -.03em; }
+.passo__cartao > span:last-child { font-size: 15px; line-height: 1.4; color: var(--bege); }
+.passo__fio { width: 1PX; height: 84px; margin-left: 40px; background: linear-gradient(180deg, rgb(241 211 138 / .35), rgb(241 211 138 / .95)); transform-origin: 50% 100%; }
+.passo__ponto { width: 14px; height: 14px; margin: -2px 0 0 33.5px; border-radius: 50%; background: radial-gradient(circle, #FFF6DC 0 30%, var(--ouro-claro) 45%, var(--ouro) 70%); box-shadow: 0 0 14px 3px rgb(241 211 138 / .7), 0 0 40px 8px rgb(212 168 75 / .35); }
+.passo:last-child .passo__ponto { box-shadow: 0 0 18px 5px rgb(241 211 138 / .9), 0 0 60px 14px rgb(212 168 75 / .5); }
+/* entrada: ponto acende com mola e o fio cresce dele até o cartão (atraso pela posição) */
+.js .passo__ponto { opacity: 0; transform: scale(0); transition: opacity .4s var(--ease) calc(var(--n) * 140ms + .2s), transform .7s cubic-bezier(.34, 1.56, .64, 1) calc(var(--n) * 140ms + .2s); }
+.js .passo__fio { transform: scaleY(0); transition: transform .8s var(--ease) calc(var(--n) * 140ms + .4s); }
+.passos-vivos .passo__ponto { opacity: 1; transform: none; }
+.passos-vivos .passo__fio { transform: none; }
+
+.processo__acao { align-self: flex-end; margin-top: 28px; }
+
+@media (max-width: 74.99em) {
+  .processo__passos { gap: 12PX; }
+  .passo { margin-bottom: calc(var(--n) * 40PX); }
+  .passo__cartao { padding: 18PX 16PX 20PX; }
+  .passo__num { font-size: 32PX; }
+  .passo__cartao strong { font-size: 18PX; }
+  .passo__cartao > span:last-child { font-size: 14PX; }
+}
+/* celular: linha do tempo vertical, o fio corre pela esquerda e os pontos marcam cada passo */
+@media (max-width: 63.99em) {
+  .processo__painel { min-height: 0; }
+  .processo__foto img { object-position: 70% 60%; }
+  .processo__painel::before { background: linear-gradient(180deg, rgb(7 6 5 / .8), rgb(7 6 5 / .55) 50%, rgb(7 6 5 / .7)); }
+  .processo__caixa { padding: 48PX 0 36PX; }
+  .processo__passos { grid-template-columns: 1fr; gap: 12PX; margin-top: 32PX; position: relative; padding-left: 28PX; }
+  .processo__passos::before { content: ''; position: absolute; left: 6PX; top: 18PX; bottom: 18PX; width: 1PX; background: linear-gradient(180deg, rgb(241 211 138 / .2), rgb(241 211 138 / .8)); }
+  .passo { margin-bottom: 0; position: relative; }
+  .passo__fio { display: none; }
+  .passo__ponto { position: absolute; left: -28PX; top: 50%; margin: -7PX 0 0; }
+  .processo__acao { align-self: stretch; }
+  .processo__acao .botao { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .passo__ponto, .js .passo__fio { opacity: 1; transform: none; transition: none; }
+}

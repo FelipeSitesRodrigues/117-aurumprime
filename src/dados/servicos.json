@@ -1,0 +1,44 @@
+[
+  {
+    "id": "veiculo",
+    "nome": "Financiamento de veículo",
+    "sub": "Carro, moto e caminhão.",
+    "alt": "SUV preto parado numa rua de cidade à noite, com o farol aceso",
+    "mensagem": "Olá! Vim pelo site e gostaria de uma análise do meu *financiamento de veículo*."
+  },
+  {
+    "id": "imovel",
+    "nome": "Financiamento de imóvel",
+    "sub": "Casa, apartamento e terreno.",
+    "alt": "Casa contemporânea à noite com as janelas acesas",
+    "mensagem": "Olá! Vim pelo site e gostaria de uma análise do meu *financiamento de imóvel*."
+  },
+  {
+    "id": "reducao-juros",
+    "nome": "Redução de juros",
+    "sub": "Parcela no valor certo.",
+    "alt": "Mulher sorrindo ao olhar o celular, sentada à mesa sob uma luminária",
+    "mensagem": "Olá! Vim pelo site e quero saber se dá pra *reduzir minha parcela*."
+  },
+  {
+    "id": "quitacao",
+    "nome": "Quitação negociada",
+    "sub": "Acordo à vista com o banco.",
+    "alt": "Mão entregando a chave de um carro para outra mão",
+    "mensagem": "Olá! Vim pelo site e quero *quitar meu financiamento*."
+  },
+  {
+    "id": "negociacao",
+    "nome": "Negociação com bancos",
+    "sub": "Atraso resolvido sem fila.",
+    "alt": "Homem de camisa social falando ao celular no escritório à noite",
+    "mensagem": "Olá! Vim pelo site e preciso de ajuda pra *negociar com o banco*."
+  },
+  {
+    "id": "analise",
+    "nome": "Análise de contrato",
+    "sub": "Cada cobrança explicada.",
+    "alt": "Mão com caneta dourada revisando um contrato sobre a mesa",
+    "mensagem": "Olá! Vim pelo site e gostaria de uma *análise do meu contrato*."
+  }
+]

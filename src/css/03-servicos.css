@@ -1,0 +1,72 @@
+/* ---------------------------------------------------------------- serviços
+   Mockup aprovado: bloco arredondado escuro com luz âmbar no canto de baixo, grade de 4x2.
+   Casa 1 é o texto, 6 cartões de foto (só nome, uma linha e a seta) e a casa 8 é o cartão
+   de vidro "Não sabe por onde começar?". Cada cartão abre o WhatsApp com o seu serviço.   */
+.servicos { padding-top: 48px; }
+.servicos__painel {
+  padding: 72px 0;
+  background:
+    radial-gradient(42% 46% at 0% 100%, rgb(212 140 50 / .3), transparent 70%),
+    radial-gradient(40% 40% at 100% 0%, rgb(212 168 75 / .07), transparent 70%),
+    linear-gradient(180deg, #100D0A, var(--preto));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .06);
+}
+.servicos__grade { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+.servicos__intro { align-self: center; }
+.servicos__titulo { margin: 22px 0 22px; font-size: 44px; white-space: nowrap; }
+.servicos__titulo .forte { display: block; }
+
+/* cartão de foto */
+.scard__link {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  aspect-ratio: 4 / 5;
+  padding: 26px 22px 24px 26px;
+  border-radius: var(--raio);
+  overflow: clip;
+  isolation: isolate;
+  border: 1px solid rgb(255 255 255 / .12);
+  background: var(--grafite);
+  transition: border-color .5s var(--ease-hover), transform .6s var(--ease);
+}
+.scard__foto { position: absolute; inset: 0; z-index: -2; }
+.scard__foto picture, .scard__foto img { width: 100%; height: 100%; }
+.scard__foto img { object-fit: cover; transition: transform 1.2s var(--ease); }
+.scard__link::before { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgb(7 6 5 / .94) 0%, rgb(7 6 5 / .7) 24%, transparent 52%); }
+.scard__texto { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.scard__nome { font-size: 22px; font-weight: 600; line-height: 1.15; letter-spacing: -.03em; }
+.scard__sub { font-size: 15px; line-height: 1.4; color: var(--bege); }
+/* seta no canto de cima: o texto embaixo ganha a largura toda e os títulos alinham pela base */
+.scard__seta { position: absolute; top: 18px; right: 18px; width: 48px; height: 48px; font-size: 18px; }
+.scard__link:hover { border-color: rgb(241 211 138 / .45); transform: translateY(-4px); }
+.scard__link:hover .scard__foto img { transform: scale(1.06); }
+.scard__link:hover .scard__seta { transform: rotate(45deg); background: var(--ouro); border-color: var(--ouro); color: var(--preto); }
+
+/* casa 8: vidro com a luz âmbar passando por trás */
+.servicos__cta { display: flex; flex-direction: column; justify-content: center; gap: 30px; padding: 32px 30px; border-radius: var(--raio); overflow: clip; background: linear-gradient(160deg, rgb(255 255 255 / .12), rgb(255 255 255 / .03)), radial-gradient(80% 70% at 80% 100%, rgb(212 168 75 / .28), transparent 70%); }
+.servicos__cta-titulo { font-size: 30px; font-weight: 300; line-height: 1.12; letter-spacing: -.04em; }
+.servicos__cta-titulo strong { display: block; font-weight: 600; }
+.servicos__cta .botao { align-self: flex-start; }
+
+@media (max-width: 74.99em) {
+  .servicos__painel { padding: 56PX 0; }
+  .servicos__grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16PX; }
+  .servicos__intro { grid-column: 1 / -1; padding: 0 0 8PX; }
+  .servicos__cta { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; }
+}
+@media (max-width: 47.99em) {
+  .servicos { padding-top: 40PX; }
+  .servicos__painel { padding: 44PX 0 16PX; }
+  .servicos__grade { grid-template-columns: 1fr; gap: 12PX; }
+  .scard__link { aspect-ratio: 4 / 3.6; padding: 20PX 18PX 20PX 20PX; }
+  .scard__foto img { object-position: 50% 35%; }
+  .scard__nome { font-size: 20PX; }
+  .scard__seta { top: 14PX; right: 14PX; }
+  .servicos__cta { flex-direction: column; align-items: flex-start; gap: 20PX; padding: 26PX 22PX; }
+  .servicos__cta-titulo { font-size: 26PX; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scard__foto img, .scard__link { transition: none; }
+}

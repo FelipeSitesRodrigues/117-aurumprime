@@ -1,0 +1,24 @@
+<!-- abertura (gerado por scripts/processar-imagens.mjs, não editar à mão): a esfera gira e
+     acende, AURUM PRIME sobe letra a letra e a assinatura se fecha no lugar; depois a tela sobe
+     com a borda curva e o fio dourado, revelando o hero. Coreografia no 97-abertura.css.
+     O script segura a abertura e o hero (abre-espera) até as peças decodificarem, no máximo 0,6 s -->
+<div class="abertura" aria-hidden="true" data-abertura>
+  <div class="abertura__marca">
+    <span class="abertura__luz"></span>
+    <div class="abertura__logo" style="aspect-ratio:1072 / 914">
+        <img class="abertura__p" data-peca="esfera" src="/assets/img/abertura-esfera.webp" alt="" width="393" height="404" style="left:19.31%;top:0%;width:61.381%">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-0.webp" alt="" width="77" height="75" style="left:0.187%;top:76.586%;width:12.034%;--l:0">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-1.webp" alt="" width="58" height="75" style="left:12.22%;top:76.586%;width:9.049%;--l:1">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-2.webp" alt="" width="59" height="75" style="left:21.269%;top:76.586%;width:9.235%;--l:2">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-3.webp" alt="" width="62" height="75" style="left:30.504%;top:76.586%;width:9.701%;--l:3">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-4.webp" alt="" width="94" height="75" style="left:40.205%;top:76.586%;width:14.739%;--l:4">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-5.webp" alt="" width="75" height="75" style="left:54.944%;top:76.586%;width:11.754%;--l:5">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-6.webp" alt="" width="60" height="75" style="left:66.698%;top:76.586%;width:9.422%;--l:6">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-7.webp" alt="" width="25" height="75" style="left:76.119%;top:76.586%;width:3.918%;--l:7">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-8.webp" alt="" width="73" height="75" style="left:80.037%;top:76.586%;width:11.474%;--l:8">
+        <img class="abertura__p" data-peca="letra" src="/assets/img/abertura-letra-9.webp" alt="" width="53" height="75" style="left:91.511%;top:76.586%;width:8.209%;--l:9">
+        <img class="abertura__p" data-peca="assinatura" src="/assets/img/abertura-assinatura.webp" alt="" width="497" height="37" style="left:11.194%;top:93.217%;width:77.612%">
+    </div>
+  </div>
+</div>
+<script>(()=>{const h=document.documentElement;if(!h.classList.contains('js')||matchMedia('(prefers-reduced-motion: reduce)').matches)return;h.classList.add('abre-espera');const solta=()=>h.classList.remove('abre-espera');Promise.race([Promise.all([...document.querySelectorAll('[data-abertura] img')].map((i)=>i.decode().catch(()=>{}))),new Promise((r)=>setTimeout(r,600))]).then(solta)})()</script>

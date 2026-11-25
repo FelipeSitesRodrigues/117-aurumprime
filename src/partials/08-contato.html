@@ -1,0 +1,51 @@
+<section class="contato secao cv" id="contato" aria-labelledby="contato-titulo" style="--cvh:900px" data-zap="{{cfg.whatsapp}}">
+  <div class="painel contato__painel">
+    <div class="painel__foto contato__foto" aria-hidden="true">
+      <img data-img="cidade" sizes="(max-width: 47.99em) 220vw, 100vw" alt="" loading="lazy">
+    </div>
+    <div class="caixa contato__grade">
+      <div class="contato__texto">
+        <span class="rotulo" data-revela>Análise do contrato</span>
+        <h2 class="titulo contato__titulo" id="contato-titulo" data-palavras data-revela="palavras">Descubra o que o banco <span class="forte">cobrou a mais.</span></h2>
+        <p class="sub" data-revela style="--atraso:.2s">Mande seu contrato e receba a análise em reais, antes de decidir qualquer coisa.</p>
+        <ul class="contato__checks">
+          <li data-revela="grade" style="--i:0"><i data-i="check" data-w="bold"></i>Menos de 1 minuto pra preencher</li>
+          <li data-revela="grade" style="--i:1"><i data-i="check" data-w="bold"></i>A conversa continua no WhatsApp</li>
+          <li data-revela="grade" style="--i:2"><i data-i="check" data-w="bold"></i>Sem compromisso</li>
+        </ul>
+      </div>
+
+      <div class="contato__caixa vidro" data-revela="direita" data-form-lugar>
+        <noscript><p class="contato__sem-js">Pra mandar seu contrato, <a href="{{wa:Olá! Vim pelo site da Aurum Prime e gostaria de uma análise do meu contrato.}}">fale direto no WhatsApp</a>.</p></noscript>
+      </div>
+      <!-- o formulário entra pelo JS depois do load: form no HTML faz o autofill do navegador
+           forçar layout na 1ª pintura (memória form-autofill-layout-forcado) -->
+      <template data-form-molde>
+        <form class="form" data-form novalidate>
+          <label class="campo"><span>Seu nome</span><input type="text" name="nome" autocomplete="given-name" placeholder="Como podemos te chamar?" required maxlength="60"></label>
+          <fieldset class="grupo" data-grupo="tipo">
+            <legend>Tipo de contrato</legend>
+            <div class="chips chips--3">
+              <label class="chip"><input type="radio" name="tipo" value="veículo"><span>Veículo</span></label>
+              <label class="chip"><input type="radio" name="tipo" value="imóvel"><span>Imóvel</span></label>
+              <label class="chip"><input type="radio" name="tipo" value="outro tipo"><span>Outro</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="grupo" data-grupo="objetivo">
+            <legend>O que você quer</legend>
+            <div class="chips chips--2">
+              <label class="chip"><input type="radio" name="objetivo" value="reduzir a parcela"><span>Reduzir a parcela</span></label>
+              <label class="chip"><input type="radio" name="objetivo" value="quitar o financiamento"><span>Quitar</span></label>
+              <label class="chip"><input type="radio" name="objetivo" value="negociar parcelas atrasadas"><span>Negociar atraso</span></label>
+              <label class="chip"><input type="radio" name="objetivo" value="entender o meu contrato"><span>Entender o contrato</span></label>
+            </div>
+          </fieldset>
+          <label class="campo"><span>Valor da parcela <em>(opcional)</em></span><input type="text" name="parcela" inputmode="decimal" autocomplete="off" placeholder="R$ 0,00" maxlength="14"></label>
+          <p class="form__erro" data-form-erro role="alert"></p>
+          <button type="submit" class="botao botao--ouro form__enviar" data-brilho><span class="brilho" aria-hidden="true"><span class="brilho__volta"><span class="brilho__ponto"></span></span></span><span class="brilho-fio" aria-hidden="true"><span class="brilho__ponto"></span></span>Enviar pelo WhatsApp<i data-i="arrow-up-right" data-w="bold" class="i--seta"></i></button>
+          <p class="form__nota"><i data-i="lock-simple" data-w="light"></i>Nada fica salvo no site: os dados vão só pra conversa com a Aurum Prime.</p>
+        </form>
+      </template>
+    </div>
+  </div>
+</section>

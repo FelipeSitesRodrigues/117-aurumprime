@@ -1,0 +1,19 @@
+{
+  "name": "0117-aurum-prime",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Site da Aurum Prime Assessoria Jurídica (revisão de financiamento em Santo André). HTML, CSS e JS estático.",
+  "scripts": {
+    "build": "node build.mjs",
+    "publicar": "node build.mjs --publicar",
+    "serve": "node scripts/serve.mjs 3417",
+    "imagens": "node scripts/processar-imagens.mjs"
+  },
+  "devDependencies": {
+    "@phosphor-icons/core": "^2.1.1",
+    "cheerio": "^1.2.0",
+    "puppeteer-core": "^25.18.1",
+    "sharp": "^0.35.5"
+  }
+}

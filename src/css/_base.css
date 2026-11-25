@@ -1,0 +1,231 @@
+/* ---------------------------------------------------------------- fonte (self-hosted, só latino)
+   Montserrat variável em tudo, como na Henry (0113). A reserva imita a métrica (medidas da
+   Henry) pra o texto não pular quando a fonte chega.                                       */
+@font-face { font-family: 'Montserrat'; src: url(/assets/fonts/montserrat-var.woff2) format('woff2'); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: 'Montserrat fallback'; src: local('Arial'), local('Helvetica'), local('Roboto'); size-adjust: 112.28%; ascent-override: 86.21%; descent-override: 22.35%; line-gap-override: 0%; }
+
+/* ---------------------------------------------------------------- tokens
+   Preto profundo e grafite quente, dourado metálico como único acento (pouco e em lugar
+   certo: logo, botão principal, pontos de luz). Mockup aprovado em 2026-11-25.            */
+:root {
+  color-scheme: dark;
+  --preto: #070605;
+  --grafite: #15120E;
+  --grafite-2: #1E1A14;
+  --ouro: #D4A84B;
+  --ouro-claro: #F1D38A;
+  --ouro-escuro: #9C7428;
+  --branco: #FBF7EF;
+  --bege: #B9AE9A;
+  --texto: rgb(251 247 239 / .72);
+  --texto-2: rgb(251 247 239 / .5);
+  --linha: rgb(255 255 255 / .1);
+  --linha-2: rgb(255 255 255 / .18);
+
+  --fonte: 'Montserrat', 'Montserrat fallback', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --largura: 1296px;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+  --ease-hover: cubic-bezier(.33, 1, .68, 1);
+  --raio: 26px;
+  --raio-painel: 40px;
+  --anim-luz: #D4A84B;
+  --anim-luz-forte: #FBE3A6;
+}
+
+/* ---------------------------------------------------------------- escala
+   1 rem = 16 px em 1440x900. Acima de 1200 o rem acompanha a janela (memória tela-larga).   */
+html { font-size: 100%; }
+@media (min-width: 75em) {
+  html { font-size: max(14.5PX, min(100vw / 90, 100vh / 56.25)); }
+}
+
+/* ---------------------------------------------------------------- reset */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+  background: var(--preto);
+}
+body {
+  min-height: 100vh;
+  background: var(--preto);
+  color: var(--branco);
+  font: 400 17px/1.6 var(--fonte);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+img, picture, svg, video { display: block; max-width: 100%; }
+img, video { height: auto; }
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; padding: 0; }
+button, input, select { font: inherit; color: inherit; }
+button { background: none; border: 0; padding: 0; cursor: pointer; }
+h1, h2, h3 { font-weight: 600; line-height: 1.05; letter-spacing: -.04em; text-wrap: balance; }
+p { text-wrap: pretty; }
+::selection { background: var(--ouro); color: var(--preto); }
+/* barra de rolagem: trilho preto e puxador dourado (Chrome 121+ e Firefox pelo scrollbar-color;
+   Safari e Chrome antigo pelo ::-webkit-scrollbar) */
+html { scrollbar-color: var(--ouro-escuro) var(--preto); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--preto); }
+::-webkit-scrollbar-thumb { border: 2px solid var(--preto); border-radius: 999px; background: linear-gradient(180deg, var(--ouro-claro), var(--ouro) 45%, var(--ouro-escuro)); }
+::-webkit-scrollbar-thumb:hover { background: var(--ouro); }
+:focus-visible { outline: 2px solid var(--ouro-claro); outline-offset: 3px; border-radius: 8px; }
+.i { width: 1em; height: 1em; fill: currentColor; flex: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.pular { position: fixed; left: 16px; top: -60px; z-index: 300; padding: 10px 18px; background: var(--ouro); color: var(--preto); font-weight: 700; border-radius: 999px; transition: top .3s var(--ease); }
+.pular:focus { top: 16px; }
+.caixa { width: min(100% - 112PX, var(--largura)); margin-inline: auto; position: relative; }
+
+/* ---------------------------------------------------------------- seções */
+/* seções abaixo da dobra só são montadas perto da tela (memórias content-visibility-*) */
+.cv { content-visibility: auto; contain-intrinsic-size: auto var(--cvh, 1000px); }
+.cv-off .cv { content-visibility: visible; }
+.secao { position: relative; padding: 64px 0; }
+/* painel arredondado que flutua no preto, com respiro nas laterais (como a Henry) */
+.painel { position: relative; margin: 0 16px; border-radius: var(--raio-painel); overflow: clip; isolation: isolate; }
+/* foto de fundo de painel: cobre tudo, com a película de cada seção por cima */
+.painel__foto { position: absolute; inset: 0; z-index: -2; }
+.painel__foto picture, .painel__foto img { width: 100%; height: 100%; }
+.painel__foto img { object-fit: cover; }
+
+/* etiqueta de seção: caixa alta espaçada */
+.rotulo {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--branco);
+}
+
+/* título de seção: 1ª linha leve, 2ª semibold (o desenho de todos os mockups) */
+.titulo { font-size: 56px; line-height: 1.02; letter-spacing: -.045em; font-weight: 300; }
+.titulo .forte { font-weight: 600; }
+.sub { font-size: 19px; line-height: 1.5; color: var(--bege); }
+
+/* ---------------------------------------------------------------- botões */
+.botao {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 0 32px;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  transition: transform .45s var(--ease), box-shadow .4s var(--ease-hover), border-color .4s var(--ease-hover), background-color .4s var(--ease-hover);
+}
+.botao .i { font-size: 19px; transition: transform .45s var(--ease); }
+.botao:hover { transform: translateY(-2px); }
+.botao:hover .i--seta { transform: translate(3px, -3px); }
+.botao:active { transform: scale(.98); }
+/* ouro: o principal. Vidro com tom dourado, aro dourado fino e reflexo no topo (mockup v1) */
+.botao--ouro {
+  color: #fff;
+  border: 1px solid rgb(241 211 138 / .75);
+  background:
+    radial-gradient(120% 140% at 50% -40%, rgb(255 230 170 / .55), transparent 60%),
+    linear-gradient(180deg, rgb(212 168 75 / .62), rgb(156 116 40 / .5));
+  box-shadow: inset 0 1px 0 rgb(255 240 200 / .6), inset 0 -10px 24px -12px rgb(0 0 0 / .45), 0 0 0 1px rgb(212 168 75 / .12), 0 18px 40px -18px rgb(212 168 75 / .7);
+  text-shadow: 0 1px 2px rgb(60 40 0 / .4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+.botao--ouro:hover { box-shadow: inset 0 1px 0 rgb(255 240 200 / .7), inset 0 -10px 24px -12px rgb(0 0 0 / .45), 0 0 0 1px rgb(212 168 75 / .2), 0 24px 50px -18px rgb(212 168 75 / .9); }
+/* contorno: o secundário, aro branco fino e fundo transparente */
+.botao--contorno { color: #fff; border: 1px solid rgb(255 255 255 / .62); }
+.botao--contorno:hover { border-color: #fff; background-color: rgb(255 255 255 / .06); }
+.botao--pequeno { min-height: 50px; padding: 0 24px; font-size: 15.5px; }
+.botao--pequeno .i { font-size: 19px; }
+
+/* ---------------------------------------------------------------- liquid glass
+   Vidro escuro e quente: borda de luz de 1 px, reflexo fino no topo e sombra longa. Em fundo
+   liso o desfoque não mostra nada (memória vidro-liso-backdrop-filter): onde o vidro fica
+   sobre preto, a seção põe luz dourada atrás.                                              */
+.vidro {
+  position: relative;
+  border: 1px solid rgb(255 255 255 / .16);
+  background: linear-gradient(180deg, rgb(255 255 255 / .1), rgb(255 255 255 / .03));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .22), inset 0 -1px 0 rgb(255 255 255 / .04), 0 24px 60px -28px rgb(0 0 0 / .8);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  backdrop-filter: blur(18px) saturate(1.4);
+}
+/* reflexo especular: fio de luz no alto que some nas pontas */
+.vidro::before {
+  content: '';
+  position: absolute;
+  inset: -1px 14% auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / .6), transparent);
+  pointer-events: none;
+}
+.pilula {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--branco);
+  white-space: nowrap;
+}
+.pilula .i { font-size: 20px; color: var(--ouro); }
+/* botão redondo de vidro (seta) */
+.redondo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  border: 1px solid rgb(255 255 255 / .24);
+  background: linear-gradient(180deg, rgb(255 255 255 / .16), rgb(255 255 255 / .05));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .32);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: transform .5s var(--ease), background-color .3s var(--ease-hover), border-color .3s var(--ease-hover), color .3s var(--ease-hover);
+}
+.redondo:hover { transform: scale(1.07); border-color: rgb(241 211 138 / .7); }
+
+/* ---------------------------------------------------------------- tablet e celular */
+@media (max-width: 74.99em) {
+  .secao { padding: 72PX 0; }
+  .caixa { width: min(100% - 72PX, var(--largura)); }
+  .titulo { font-size: clamp(40PX, 5.4vw, 52PX); }
+}
+@media (max-width: 47.99em) {
+  html { scroll-padding-top: 68PX; }
+  body { font-size: 16PX; }
+  .caixa { width: min(100% - 40PX, var(--largura)); }
+  .secao { padding: 60PX 0; }
+  .painel { margin: 0 8PX; border-radius: 26PX; }
+  .rotulo { font-size: 11.5PX; letter-spacing: .28em; }
+  .titulo { font-size: clamp(32PX, 9.2vw, 40PX); }
+  .sub { font-size: 16.5PX; }
+  .botao { min-height: 56PX; padding: 0 26PX; font-size: 16.5PX; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+/* celular: vidro sem desfoque. O backdrop-filter em dezenas de peças pesava no estilo e na
+   composição (TBT de 490 ms no Lighthouse do celular); o vidro fica no degradê e na borda,
+   como na Henry (0113) */
+@media (max-width: 47.99em) {
+  .vidro, .redondo, .botao--ouro, .topo__menu, .topo__barra::before, .contato__caixa { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .topo__barra::before { background: rgb(7 6 5 / .94); }
+  .contato__caixa { background: linear-gradient(160deg, rgb(255 255 255 / .1), rgb(255 255 255 / .03) 50%, rgb(255 255 255 / .06)), rgb(10 8 6 / .82); }
+}

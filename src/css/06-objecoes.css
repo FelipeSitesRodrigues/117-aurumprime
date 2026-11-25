@@ -1,0 +1,48 @@
+/* ---------------------------------------------------------------- dúvidas sinceras (objeções)
+   Mockup aprovado: título e a foto do homem no carro à esquerda, com o botão de vidro por
+   cima; à direita as 4 objeções entre aspas douradas, cada uma com a resposta numa linha.
+   Sem sanfona: são curtas e ficam abertas (o "+" do mockup não abria nada a mais).       */
+.objecoes { padding-bottom: 0; }
+.objecoes__painel {
+  display: grid;
+  grid-template-columns: minmax(0, 520px) minmax(0, 1fr);
+  gap: 88px;
+  align-items: center;
+  padding: 72px 80px;
+  background: radial-gradient(50% 60% at 0% 100%, rgb(212 140 50 / .22), transparent 70%), linear-gradient(180deg, #0F0C09, var(--preto));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .08);
+}
+.objecoes__titulo { margin: 22px 0 36px; }
+.objecoes__titulo .forte { display: block; }
+.objecoes__foto { position: relative; aspect-ratio: 1 / 1.02; border-radius: var(--raio); overflow: clip; border: 1px solid rgb(255 255 255 / .12); }
+.objecoes__foto picture, .objecoes__foto img { width: 100%; height: 100%; }
+.objecoes__foto img { object-fit: cover; object-position: 50% 30%; }
+.objecoes__botao { position: absolute; left: 28px; right: 28px; bottom: 28px; }
+
+.objecoes__lista { display: grid; }
+.objecao { padding: 34px 0; }
+.objecao + .objecao { border-top: 1px solid var(--linha-2); }
+.objecao__q { font-size: 34px; font-weight: 600; line-height: 1.15; letter-spacing: -.035em; }
+.objecao__aspas { color: var(--ouro); font-weight: 500; }
+.objecao__aspas:first-child { margin-right: .12em; }
+.objecao__aspas:last-child { margin-left: .06em; }
+.objecao__r { margin-top: 12px; max-width: 620px; font-size: 18px; line-height: 1.5; color: var(--bege); }
+
+@media (max-width: 74.99em) {
+  .objecoes__painel { gap: 48PX; padding: 56PX 44PX; grid-template-columns: minmax(0, 400PX) minmax(0, 1fr); }
+  .objecao__q { font-size: 27PX; }
+  .objecao__r { font-size: 16.5PX; }
+}
+@media (max-width: 63.99em) {
+  .objecoes__painel { grid-template-columns: 1fr; padding: 48PX 28PX 24PX; }
+  .objecoes__foto { aspect-ratio: 4 / 3.4; }
+}
+@media (max-width: 47.99em) {
+  .objecoes__painel { padding: 44PX 18PX 12PX; gap: 24PX; }
+  .objecoes__titulo { margin-bottom: 26PX; }
+  .objecoes__foto { aspect-ratio: 4 / 4.4; }
+  .objecoes__botao { left: 14PX; right: 14PX; bottom: 14PX; }
+  .objecao { padding: 24PX 0; }
+  .objecao__q { font-size: 22PX; }
+  .objecao__r { font-size: 15.5PX; }
+}

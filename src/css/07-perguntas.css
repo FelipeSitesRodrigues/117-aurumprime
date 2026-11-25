@@ -1,0 +1,86 @@
+/* ---------------------------------------------------------------- perguntas frequentes (liquid glass)
+   Desenhada no código (o mockup do fim da página foi reprovado). Atrás das perguntas, 3 luzes
+   douradas grandes e desfocadas (paradas: vidro sobre fundo liso não mostra nada, memória
+   vidro-liso-backdrop-filter). Cada pergunta é uma lâmina de vidro; a aberta acende o aro
+   dourado e um brilho segue o mouse por dentro dela. Título e cartão do WhatsApp ficam presos
+   à esquerda enquanto a lista rola.                                                        */
+.perguntas { background: var(--preto); overflow: clip; isolation: isolate; }
+.perguntas__luzes { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.perguntas__luzes span { position: absolute; border-radius: 50%; }
+.perguntas__luzes span:nth-child(1) { width: 620px; height: 620px; right: 6%; top: 4%; background: radial-gradient(closest-side, rgb(212 160 70 / .26), rgb(212 160 70 / .06) 60%, transparent); }
+.perguntas__luzes span:nth-child(2) { width: 520px; height: 520px; right: 34%; top: 46%; background: radial-gradient(closest-side, rgb(170 110 30 / .24), transparent 70%); }
+.perguntas__luzes span:nth-child(3) { width: 440px; height: 440px; left: -6%; bottom: -10%; background: radial-gradient(closest-side, rgb(241 211 138 / .1), transparent 70%); }
+
+.perguntas__grade { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 80px; align-items: start; }
+.perguntas__lado { position: sticky; top: 120px; }
+.perguntas__titulo { margin: 22px 0 20px; }
+.perguntas__titulo .forte { display: block; }
+.perguntas__card { display: flex; align-items: center; gap: 16px; margin-top: 36px; padding: 18px 18px 18px 20px; border-radius: 24px; }
+.perguntas__card-icone { display: grid; place-items: center; flex: none; width: 50px; height: 50px; border-radius: 16px; background: rgb(212 160 70 / .14); border: 1px solid rgb(212 160 70 / .35); color: var(--ouro); font-size: 26px; }
+.perguntas__card > div { flex: 1; display: flex; flex-direction: column; line-height: 1.35; }
+.perguntas__card strong { font-size: 17px; font-weight: 600; }
+.perguntas__card > div span { font-size: 14.5px; color: var(--texto); }
+
+.perguntas__lista { display: grid; gap: 12px; }
+.duvida {
+  --mx: 50%;
+  --my: 0%;
+  border-radius: 22px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgb(255 255 255 / .075), rgb(255 255 255 / .025));
+  transition: border-color .5s var(--ease-hover), background-color .5s var(--ease-hover), box-shadow .5s var(--ease-hover), transform .5s var(--ease);
+}
+/* brilho que segue o mouse dentro da lâmina */
+.duvida::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(240px circle at var(--mx) var(--my), rgb(255 225 160 / .12), transparent 70%); opacity: 0; transition: opacity .4s var(--ease); pointer-events: none; }
+.duvida:hover::after { opacity: 1; }
+.duvida:hover { border-color: rgb(255 255 255 / .24); }
+.duvida--aberta { border-color: rgb(212 160 70 / .55); background: linear-gradient(180deg, rgb(212 160 70 / .14), rgb(255 255 255 / .03)); box-shadow: inset 0 1px 0 rgb(255 235 190 / .35), 0 0 0 1px rgb(212 160 70 / .12), 0 30px 60px -30px rgb(212 160 70 / .45); }
+.duvida h3 { font-size: inherit; letter-spacing: normal; line-height: inherit; }
+.duvida__q {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  padding: 26px 28px;
+  text-align: left;
+    font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  line-height: 1.25;
+}
+.duvida__mais { position: relative; flex: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgb(255 255 255 / .2); background: rgb(255 255 255 / .06); transition: transform .6s var(--ease), background-color .4s var(--ease-hover), border-color .4s var(--ease-hover); }
+.duvida__mais::before, .duvida__mais::after { content: ''; position: absolute; left: 50%; top: 50%; width: 14px; height: 1.5PX; margin: -0.75PX 0 0 -7px; border-radius: 2px; background: currentColor; transition: transform .6s var(--ease); }
+.duvida__mais::after { transform: rotate(90deg); }
+.duvida--aberta .duvida__mais { transform: rotate(135deg); background: var(--ouro); border-color: var(--ouro); color: var(--preto); }
+/* resposta abre pela altura da grade (0fr a 1fr) e o texto sai do desfoque */
+.duvida__r { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
+.duvida__r > div { overflow: hidden; }
+.duvida__r p { padding: 0 92px 26px 28px; font-size: 17px; line-height: 1.6; color: var(--texto); opacity: 0; transform: translate3d(0, -6px, 0); filter: blur(6px); transition: opacity .4s var(--ease), transform .6s var(--ease), filter .5s var(--ease); }
+.duvida--aberta .duvida__r { grid-template-rows: 1fr; }
+.duvida--aberta .duvida__r p { opacity: 1; transform: none; filter: none; transition-delay: .12s; }
+/* sem JS: tudo aberto */
+html:not(.js) .duvida__r { grid-template-rows: 1fr; }
+html:not(.js) .duvida__r p { opacity: 1; transform: none; filter: none; }
+
+@media (max-width: 74.99em) {
+  .perguntas__grade { gap: 48PX; grid-template-columns: minmax(0, 340PX) minmax(0, 1fr); }
+}
+@media (max-width: 63.99em) {
+  .perguntas__grade { grid-template-columns: 1fr; }
+  .perguntas__lado { position: static; }
+}
+@media (max-width: 47.99em) {
+  .perguntas__card { margin-top: 24PX; }
+  .perguntas__luzes span:nth-child(1) { width: 420PX; height: 420PX; right: -30%; top: 20%; }
+  .perguntas__luzes span:nth-child(2) { width: 360PX; height: 360PX; right: 10%; top: 60%; }
+  .duvida { border-radius: 18PX; }
+  .duvida__q { padding: 20PX 18PX; font-size: 17.5PX; gap: 14PX; }
+  .duvida__mais { width: 34PX; height: 34PX; }
+  .duvida__r p { padding: 0 18PX 20PX; font-size: 15.5PX; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .duvida__r, .duvida__r p, .duvida__mais { transition: none; }
+}

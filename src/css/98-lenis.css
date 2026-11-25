@@ -1,0 +1,8 @@
+/* ---------------------------------------------------------------- Lenis (rolagem suave)
+   O lenis.css do pacote (1.3.27) mais o scroll-behavior: o smooth nativo do html brigaria com
+   a inércia do Lenis nas âncoras.                                                            */
+html.lenis, html.lenis body { height: auto; }
+html.lenis { scroll-behavior: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }

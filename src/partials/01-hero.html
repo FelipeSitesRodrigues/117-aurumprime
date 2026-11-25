@@ -1,0 +1,30 @@
+<section class="hero" id="inicio" data-hero aria-labelledby="hero-titulo">
+  <div class="hero__moldura">
+    <!-- a cena guarda a proporção da foto (cover por container query) e leva as marcações
+         junto: o ponto fica sempre na mesma parte do carro, em qualquer tela -->
+    <div class="hero__cena" data-hero-cena>
+      <img data-img="hero" data-preload data-celular="hero-cel" data-celular-sizes="100vw" sizes="(max-width: 74.99em) 100vw, 112rem" alt="Homem de braços cruzados, encostado num SUV preto à noite, com a cidade iluminada ao fundo" class="hero__foto" fetchpriority="high">
+    </div>
+    <!-- as marcações ficam numa cópia da cena (mesma geometria) acima da película escura;
+         dentro da cena elas ficavam apagadas pela película do lado do texto -->
+    <div class="hero__cena hero__cena--marcas" data-hero-cena>
+      <ul class="hero__marcas" aria-label="O que a análise do contrato procura">
+        <li class="marcacao marcacao--cima" style="--x:83.5%;--y:43%;--h:12rem;--atraso:1s"><span class="marcacao__ponto" aria-hidden="true"></span><span class="marcacao__fio" aria-hidden="true"></span><span class="marcacao__rotulo pilula vidro">Juros acima da média</span></li>
+        <li class="marcacao marcacao--baixo marcacao--fim" style="--x:50.8%;--y:64%;--h:7rem;--atraso:1.15s"><span class="marcacao__ponto" aria-hidden="true"></span><span class="marcacao__fio" aria-hidden="true"></span><span class="marcacao__rotulo pilula vidro">Seguro embutido</span></li>
+        <li class="marcacao marcacao--baixo marcacao--fim" style="--x:88.5%;--y:65%;--h:8rem;--atraso:1.3s"><span class="marcacao__ponto" aria-hidden="true"></span><span class="marcacao__fio" aria-hidden="true"></span><span class="marcacao__rotulo pilula vidro">Tarifas não informadas</span></li>
+      </ul>
+    </div>
+
+    <div class="hero__grade">
+      <div class="hero__texto" data-hero-texto>
+        <h1 class="hero__titulo anim-hero" id="hero-titulo" data-palavras>Sua parcela pode ter juros<br> que não deveria.</h1>
+        <p class="hero__sub anim-hero-texto" style="--atraso:.55s">Revisão de financiamento de veículo e imóvel, com negociação direta com o banco.</p>
+        <div class="hero__acoes anim-hero-texto" style="--atraso:.7s">
+          <a class="botao botao--ouro" href="#contato" data-brilho><span class="brilho" aria-hidden="true"><span class="brilho__volta"><span class="brilho__ponto"></span></span></span><span class="brilho-fio" aria-hidden="true"><span class="brilho__ponto"></span></span>Analisar meu contrato<i data-i="arrow-up-right" data-w="bold" class="i--seta"></i></a>
+          <a class="botao botao--contorno" href="#como-funciona">Como funciona</a>
+        </div>
+        <p class="hero__micro anim-hero-texto" style="--atraso:.85s">Análise do seu caso sem compromisso <span aria-hidden="true">·</span> Atendimento pelo WhatsApp</p>
+      </div>
+    </div>
+  </div>
+</section>

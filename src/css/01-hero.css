@@ -1,0 +1,99 @@
+/* ---------------------------------------------------------------- hero
+   Mockup aprovado (hero v4): moldura arredondada sobre o preto, a foto do homem com o SUV à
+   noite ocupando tudo, headline branca e leve à esquerda e 3 marcações de vidro apontando
+   partes do carro (o que a análise procura). No celular a foto vertical vira o fundo da
+   seção e as marcações saem (memória hero-mobile-foto-de-fundo).                         */
+.hero { position: relative; padding: 16px 16px 0; background: var(--preto); }
+.hero__moldura {
+  position: relative;
+  height: max(calc(100svh - 32px), 680px);
+  border-radius: var(--raio-painel);
+  overflow: clip;
+  isolation: isolate;
+  background: var(--preto);
+  container-type: size;
+}
+/* aro dourado fino por cima da foto */
+.hero__moldura::after { content: ''; position: absolute; inset: 0; z-index: 3; border-radius: inherit; box-shadow: inset 0 0 0 1px rgb(241 211 138 / .16); pointer-events: none; }
+/* cover sem object-fit: a cena tem a proporção da foto e cresce até cobrir a moldura,
+   presa em cima e à direita: em tela larga o corte vai pro piso, e as marcações não sobem até o menu */
+.hero__cena { position: absolute; right: 0; top: 0; z-index: -2; width: max(100cqw, 177.69cqh); aspect-ratio: 1672 / 941; }
+.hero__cena picture, .hero__foto { width: 100%; height: 100%; }
+.hero__cena--marcas { z-index: 0; pointer-events: none; }
+.hero__foto { animation: hero-foto 2.4s var(--ease) both; }
+@keyframes hero-foto { from { transform: scale(1.07); } }
+/* película: escurece a esquerda (texto) e a base */
+.hero__moldura::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(7 6 5 / .82) 0%, rgb(7 6 5 / .5) 36%, transparent 58%),
+    linear-gradient(0deg, rgb(7 6 5 / .5) 0%, transparent 22%);
+  pointer-events: none;
+}
+
+/* o texto alinha com a logo do topo (64 px da borda da janela = 48 px dentro da moldura),
+   não com o miolo centralizado: em tela larga o miolo descolava o texto da logo */
+.hero__grade { height: 100%; display: flex; align-items: center; padding: 96px 48px 40px; }
+.hero__texto { max-width: 900px; }
+.hero__titulo { font-size: 56px; font-weight: 400; line-height: 1.02; letter-spacing: -.045em; color: var(--branco); }
+.hero__sub { max-width: 520px; margin-top: 24px; font-size: 19px; line-height: 1.5; color: var(--bege); }
+.hero__acoes { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 36px; }
+.hero__acoes .botao { min-height: 60px; padding: 0 32px; font-size: 18px; }
+.hero__micro { margin-top: 20px; font-size: 14px; color: var(--bege); }
+.hero__micro span { margin: 0 6px; color: var(--ouro); }
+
+/* ---------------------------------------------------------------- marcações
+   Ponto dourado na peça do carro, fio fino e a pílula de vidro na ponta. --x/--y é a posição
+   do ponto em % da foto, --h o comprimento do fio. Entram depois do título: o ponto acende
+   com mola, o fio cresce do ponto e a pílula sai do desfoque. Depois o ponto pulsa.        */
+.hero__marcas { position: absolute; inset: 0; }
+.marcacao { position: absolute; left: var(--x); top: var(--y); width: 0; height: 0; }
+.marcacao__ponto { position: absolute; left: -7px; top: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle, #FFF6DC 0 30%, var(--ouro-claro) 45%, var(--ouro) 70%); box-shadow: 0 0 14px 3px rgb(241 211 138 / .75), 0 0 40px 8px rgb(212 168 75 / .35); }
+.marcacao__ponto::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid rgb(241 211 138 / .8); opacity: 0; }
+.marcacao__fio { position: absolute; left: -.5PX; width: 1PX; height: var(--h); }
+.marcacao--cima .marcacao__fio { bottom: 0; transform-origin: 50% 100%; background: linear-gradient(0deg, rgb(241 211 138 / .95), rgb(241 211 138 / .3)); }
+.marcacao--baixo .marcacao__fio { top: 0; transform-origin: 50% 0; background: linear-gradient(180deg, rgb(241 211 138 / .95), rgb(241 211 138 / .3)); }
+.marcacao__rotulo { position: absolute; left: -22px; min-height: 46px; padding: 0 22px; font-size: 16px; font-weight: 500; color: #fff; white-space: nowrap; }
+.marcacao--cima .marcacao__rotulo { bottom: var(--h); }
+.marcacao--baixo .marcacao__rotulo { top: var(--h); }
+.marcacao--fim .marcacao__rotulo { left: auto; right: -22px; }
+.js .marcacao__ponto { animation: marca-ponto .7s cubic-bezier(.34, 1.56, .64, 1) calc(var(--atraso) + var(--abre)) both; }
+.js .marcacao__ponto::after { animation: marca-pulso 2.8s var(--ease) calc(var(--atraso) + var(--abre) + .8s) infinite; }
+.js .marcacao__fio { animation: marca-fio .8s var(--ease) calc(var(--atraso) + var(--abre) + .15s) both; }
+.js .marcacao__rotulo { animation: marca-rotulo .9s var(--ease) calc(var(--atraso) + var(--abre) + .45s) both; }
+.hero--fora .marcacao__ponto::after { animation-play-state: paused; }
+@keyframes marca-ponto { from { opacity: 0; transform: scale(0); } }
+@keyframes marca-pulso { 0% { opacity: .9; transform: scale(.6); } 70%, 100% { opacity: 0; transform: scale(2.2); } }
+@keyframes marca-fio { from { transform: scaleY(0); } }
+@keyframes marca-rotulo { from { opacity: 0; transform: translate3d(0, 10px, 0); filter: blur(8px); } }
+
+/* tablet: a foto corta pela esquerda e o carro fica sob o texto; marcações saem */
+@media (max-width: 74.99em) {
+  .hero__grade { padding-inline: 12PX; }
+  .hero__marcas { display: none; }
+  .hero__moldura::before { background: linear-gradient(90deg, rgb(7 6 5 / .85) 0%, rgb(7 6 5 / .5) 45%, rgb(7 6 5 / .1) 75%), linear-gradient(0deg, rgb(7 6 5 / .6) 0%, transparent 30%); }
+  .hero__titulo { font-size: clamp(48PX, 6.4vw, 64PX); }
+  .hero__texto { max-width: 620PX; }
+}
+/* celular: o retrato (homem e frente do carro) é o fundo; texto embaixo sobre o degradê */
+@media (max-width: 47.99em) {
+  .hero { padding: 8PX 8PX 0; }
+  .hero__moldura { height: max(calc(100svh - 16PX), 640PX); border-radius: 26PX; }
+  /* a foto vertical ocupa só a parte de cima: o homem fica inteiro acima do título; o piso
+     some no degradê embaixo */
+  .hero__cena { inset: 0 0 auto; height: 72%; width: auto; aspect-ratio: auto; }
+  .hero__foto { object-fit: cover; object-position: 32% 100%; }
+  .hero__moldura::before { background: linear-gradient(0deg, var(--preto) 0%, rgb(7 6 5 / .92) 34%, rgb(7 6 5 / .35) 58%, transparent 72%), linear-gradient(180deg, rgb(7 6 5 / .6), transparent 20%); }
+  .hero__grade { align-items: flex-end; padding: 0 14PX 30PX; }
+  .hero__titulo { font-size: clamp(34PX, 10vw, 42PX); }
+  .hero__sub { margin-top: 16PX; font-size: 16.5PX; }
+  .hero__acoes { flex-direction: column; gap: 12PX; margin-top: 26PX; }
+  .hero__acoes .botao { width: 100%; min-height: 58PX; font-size: 17PX; }
+  .hero__micro { margin-top: 16PX; font-size: 13PX; text-align: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__foto, .js .marcacao__ponto, .js .marcacao__ponto::after, .js .marcacao__fio, .js .marcacao__rotulo { animation: none; }
+}
