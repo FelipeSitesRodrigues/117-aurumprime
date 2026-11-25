@@ -14,7 +14,7 @@ export function schemaEmpresa(html, cfg) {
     image: `${base}/assets/img/og.jpg`,
     logo: `${base}/icon-512.png`,
     telephone: `+${cfg.whatsapp}`,
-    address: { '@type': 'PostalAddress', streetAddress: e.rua, addressLocality: e.cidade, addressRegion: e.uf, postalCode: e.cep, addressCountry: 'BR' },
+    address: { '@type': 'PostalAddress', streetAddress: [e.rua, e.complemento].filter(Boolean).join(', '), addressLocality: e.cidade, addressRegion: e.uf, postalCode: e.cep, addressCountry: 'BR' },
     areaServed: [{ '@type': 'City', name: 'Santo André' }, { '@type': 'AdministrativeArea', name: 'Grande ABC' }],
     serviceType: 'Revisão de contrato de financiamento',
     knowsAbout: ['Revisão de financiamento de veículo', 'Revisão de financiamento imobiliário', 'Juros abusivos', 'Quitação de financiamento', 'Negociação de dívida com banco', 'Análise de contrato bancário'],

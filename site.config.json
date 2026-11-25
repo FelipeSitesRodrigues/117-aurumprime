@@ -6,6 +6,7 @@
   "descricao": "Revisão de contratos de financiamento de veículo e imóvel em Santo André (SP). A Aurum Prime analisa juros, tarifas e seguros cobrados, mostra em reais o que foi cobrado a mais e negocia direto com o banco.",
   "endereco": {
     "rua": "R. Gen. Glicério, 926",
+    "complemento": "Sala 54",
     "bairro": "Casa Branca",
     "cidade": "Santo André",
     "uf": "SP",
